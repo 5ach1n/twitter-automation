@@ -40,11 +40,18 @@ public class APIUtils {
     private static Map<String, String> getDefaultHeaders() {
         HashMap<String, String> headers = new HashMap<>();
         headers.put("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
-        return  headers;
+        return headers;
     }
 
     public static String getBearer() throws UnsupportedEncodingException {
         Response oAuthResponse = getOauthResponse();
         return oAuthResponse.jsonPath().get("access_token");
+    }
+
+    public static Response getTweets(int noOfTweets, String token) {
+        Map<String, String> defaultHeaders = getDefaultHeaders();
+        defaultHeaders.put("Authorization", bearer + token);
+        return given().headers(defaultHeaders).log().all()
+                .get(host + getTweetsApi + "&count=" + noOfTweets);
     }
 }
