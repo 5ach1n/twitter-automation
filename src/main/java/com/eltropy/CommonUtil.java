@@ -15,7 +15,7 @@ public class CommonUtil {
 
     public static List<Map<String, Object>> getNoReTweets(Response response){
         List<Map<String, Object>> tweets = response.jsonPath().get();
-        tweets = tweets.stream().filter(x -> x.get("retweeted").equals(true)).collect(Collectors.toList());
+        tweets = tweets.stream().filter(x -> x.get("retweeted").equals(false)).collect(Collectors.toList());
         return tweets;
     }
 
